@@ -20,18 +20,32 @@ class HomeState extends State<Home> {
 
   Map allData;
   List data;
+  var isLoading = false;
 
   Future getJson() async {
+    setState(() {
+      isLoading = true;
+    });
+
     String apiLink = "http://faker.wecode.ng/api/v1/faker/people/";
     print(apiLink);
 
     http.Response response = await http.get(apiLink);
-    allData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      allData = jsonDecode(response.body);
 
 
-    data = allData['response'];
+      data = allData['response'];
 
-    print(data.toString());
+      print(data.toString());
+
+      setState(() {
+        isLoading = false;
+      });
+    }else {
+      throw Exception('Failed to load');
+    }
+
   }
 
 
@@ -59,12 +73,17 @@ class HomeState extends State<Home> {
                 Icons.info_outline,
                 color: Colors.red,
               ),
-              onPressed: () => _showAlertInfo(context))
+              onPressed: () => _showAlertInfo(context)
+          )
 
         ],
       ),
 
-      body: Center(
+      body: isLoading
+          ? Center(
+        child: CircularProgressIndicator(),
+      )
+          :Center(
         child: ListView.builder(
           itemCount: data == null ? 0 : data.length,
           padding: EdgeInsets.all(16.0),
