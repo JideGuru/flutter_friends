@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
+
+//Import HTTP
 import 'package:http/http.dart' as http;
 
 class Home extends StatefulWidget {
@@ -22,17 +24,19 @@ class HomeState extends State<Home> {
   List data;
   var isLoading = false;
 
+  //Function to parse JSON
   Future getJson() async {
     setState(() {
       isLoading = true;
     });
 
+    //API for getting the data
     String apiLink = "http://faker.wecode.ng/api/v1/faker/people/";
     print(apiLink);
 
     http.Response response = await http.get(apiLink);
     if (response.statusCode == 200) {
-      allData = jsonDecode(response.body);
+      allData = jsonDecode(response.body); //JSON.decode ins older versions of flutter
 
 
       data = allData['response'];
@@ -58,6 +62,8 @@ class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      //AppBar
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Text(
@@ -79,6 +85,7 @@ class HomeState extends State<Home> {
         ],
       ),
 
+      //Body
       body: isLoading
           ? Center(
         child: CircularProgressIndicator(
@@ -90,6 +97,7 @@ class HomeState extends State<Home> {
           padding: EdgeInsets.all(16.0),
           itemBuilder: (BuildContext context, int position) {
 
+            //Set divider for every thing in odd position(There is a better way to do it)
             if (position.isOdd) return Divider();
             final index = position ~/ 2;
             String sname = data[index]['surname'];
@@ -130,6 +138,7 @@ class HomeState extends State<Home> {
     );
   }
 
+  //Function to Show Alert Dialog for showing messages
   void _showAlertMessage(BuildContext context, String title, String message){
     var alert = new AlertDialog(
       title: Text("$title"),
@@ -147,6 +156,7 @@ class HomeState extends State<Home> {
     showDialog(context: context, builder: (context)=> alert);
   }
 
+  //Function to Show Alert Dialog for showing app details
   void _showAlertInfo(BuildContext context){
     var alert = new AlertDialog(
       title: Text("Info"),
