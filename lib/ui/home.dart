@@ -81,7 +81,8 @@ class HomeState extends State<Home> {
 
       body: isLoading
           ? Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+        ),
       )
           :Center(
         child: ListView.builder(
