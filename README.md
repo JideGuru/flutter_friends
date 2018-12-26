@@ -1,6 +1,6 @@
 # Friends
 
-A flutter app that show how to get JSON data and display in ListView and also how to use AlertDialogs
+A flutter app that shows how to get JSON data and display in ListView and also how to use AlertDialogs
 
 
 # Why?
