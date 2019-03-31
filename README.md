@@ -1,4 +1,4 @@
-# Friends
+# Friends [![Build Status](https://travis-ci.com/JideGuru/flutter_friends.svg?branch=master)](https://travis-ci.com/JideGuru/flutter_friends)
 
 A flutter app that shows how to get JSON data and display in ListView and also how to use AlertDialogs
 
